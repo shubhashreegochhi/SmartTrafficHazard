@@ -1,4 +1,4 @@
 package com.mediagurd.service;
 
-public class userService {
+public class AlertService {
 }

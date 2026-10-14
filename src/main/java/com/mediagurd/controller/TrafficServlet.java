@@ -1,4 +1,4 @@
 package com.mediagurd.controller;
 
-public class ReportHazardServlet {
+public class TrafficServlet {
 }

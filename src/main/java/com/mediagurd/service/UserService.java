@@ -1,4 +1,4 @@
 package com.mediagurd.service;
 
-public class PythonAIService {
+public class UserService {
 }

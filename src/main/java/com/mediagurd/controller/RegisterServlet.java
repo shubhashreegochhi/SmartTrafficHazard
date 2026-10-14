@@ -1,4 +1,4 @@
 package com.mediagurd.controller;
 
-public class ReggisterServlet {
+public class RegisterServlet {
 }
