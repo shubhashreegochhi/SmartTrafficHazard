@@ -18,6 +18,17 @@ public class RegisterServlet extends HttpServlet {
 
     private UserService userService = new UserService();
 
+    // Open registration page
+    @Override
+    protected void doGet(HttpServletRequest request,
+                         HttpServletResponse response)
+            throws ServletException, IOException {
+
+        request.getRequestDispatcher("/register.jsp")
+                .forward(request, response);
+    }
+
+    // Process registration form
     @Override
     protected void doPost(HttpServletRequest request,
                           HttpServletResponse response)

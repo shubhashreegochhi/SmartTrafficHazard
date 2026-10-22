@@ -7,29 +7,14 @@ import java.sql.SQLException;
 
 public class DatabaseConnection {
 
-    private static final String URL = System.getenv()
-            .getOrDefault(
-                    "DB_URL",
-                    "jdbc:mysql://localhost:3306/smart_traffic_db"
-            );
+    private static final String URL =
+            "jdbc:mysql://localhost:3306/smart_traffic_db";
 
-    private static final String USER = System.getenv()
-            .getOrDefault("DB_USER", "root");
+    private static final String USER = "root";
 
-    private DatabaseConnection() {
-        // Prevent unnecessary object creation.
-    }
+    private static final String PASSWORD = "vortex11";
 
     public static Connection getConnection() throws SQLException {
-
-        String password = System.getenv("DB_PASSWORD");
-
-        if (password == null || password.isBlank()) {
-            throw new SQLException(
-                    "DB_PASSWORD environment variable is not configured."
-            );
-        }
-
-        return DriverManager.getConnection(URL, USER, password);
+        return DriverManager.getConnection(URL, USER, PASSWORD);
     }
 }
