@@ -16,54 +16,38 @@ import java.sql.SQLException;
 @WebServlet("/register")
 public class RegisterServlet extends HttpServlet {
 
-    private UserService userService = new UserService();
-
-    // Open registration page
     @Override
-    protected void doGet(HttpServletRequest request,
-                         HttpServletResponse response)
+    protected void doGet(HttpServletRequest req,
+                         HttpServletResponse resp)
             throws ServletException, IOException {
 
-        request.getRequestDispatcher("/register.jsp")
-                .forward(request, response);
+        req.getRequestDispatcher("/register.jsp").forward(req, resp);
     }
 
-    // Process registration form
     @Override
-    protected void doPost(HttpServletRequest request,
-                          HttpServletResponse response)
+    protected void doPost(HttpServletRequest req,
+                          HttpServletResponse resp)
             throws ServletException, IOException {
 
-        request.setCharacterEncoding("UTF-8");
-
-        String fullName = request.getParameter("fullName");
-        String email = request.getParameter("email");
-        String password = request.getParameter("password");
-        String phone = request.getParameter("phone");
+        String fullName = req.getParameter("fullName");
+        String email = req.getParameter("email");
+        String password = req.getParameter("password");
+        String phone = req.getParameter("phone");
 
         User user = new User(
-                fullName,
-                email,
-                password,
-                phone,
-                "CITIZEN"
+                fullName, email, password, phone, "CITIZEN"
         );
+
+        UserService userService = new UserService();
 
         try {
             String result = userService.registerUser(user);
 
-            if (result.equals("Registration successful")) {
-                response.sendRedirect(
-                        request.getContextPath() + "/login.jsp?registered=true"
-                );
-            } else {
-                request.setAttribute("error", result);
-                request.getRequestDispatcher("/register.jsp")
-                        .forward(request, response);
-            }
+            resp.setContentType("text/plain;charset=UTF-8");
+            resp.getWriter().println(result);
 
         } catch (SQLException e) {
-            throw new ServletException("Registration failed", e);
+            throw new ServletException(e);
         }
     }
 }

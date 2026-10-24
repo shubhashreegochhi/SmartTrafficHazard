@@ -11,10 +11,16 @@ public class DatabaseConnection {
             "jdbc:mysql://localhost:3306/smart_traffic_db";
 
     private static final String USER = "root";
-
     private static final String PASSWORD = "vortex11";
 
     public static Connection getConnection() throws SQLException {
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            throw new SQLException("MySQL driver not found.", e);
+        }
+
         return DriverManager.getConnection(URL, USER, PASSWORD);
     }
 }
